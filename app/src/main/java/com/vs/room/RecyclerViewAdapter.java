@@ -1,6 +1,5 @@
 package com.vs.room;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.vs.room.room.RoomEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,20 +36,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return names.size();
     }
 
-    public void setNames(List<RoomEntity> names) {
+    void setNames(List<RoomEntity> names) {
         this.names = names;
         notifyDataSetChanged();
     }
 
-    public RoomEntity getNoteAt(int position) {
+    RoomEntity getNoteAt(int position) {
         return names.get(position);
     }
 
-    class NameHolder extends RecyclerView.ViewHolder {
+    static class NameHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         private TextView textViewDescription;
 
-        public NameHolder(View itemView) {
+        NameHolder(View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textView);
             textViewDescription = itemView.findViewById(R.id.textView1);

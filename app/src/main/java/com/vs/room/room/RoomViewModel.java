@@ -1,4 +1,4 @@
-package com.vs.room;
+package com.vs.room.room;
 
 import android.app.Application;
 

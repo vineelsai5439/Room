@@ -1,4 +1,4 @@
-package com.vs.room;
+package com.vs.room.room;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -7,33 +7,33 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class RoomRepository {
+class RoomRepository {
     private RoomDao nameDao;
     private LiveData<List<RoomEntity>> allNames;
 
-    public RoomRepository(Application application) {
+    RoomRepository(Application application) {
         mRoomDatabase database = mRoomDatabase.getInstance(application);
         nameDao = database.nameDao();
         allNames = nameDao.getAlphabetizedWords();
     }
 
-    public void insert(RoomEntity name) {
+    void insert(RoomEntity name) {
         new InsertNoteAsyncTask(nameDao).execute(name);
     }
 
-    public void update(RoomEntity name) {
+    void update(RoomEntity name) {
         new UpdateNoteAsyncTask(nameDao).execute(name);
     }
 
-    public void delete(RoomEntity name) {
+    void delete(RoomEntity name) {
         new DeleteNoteAsyncTask(nameDao).execute(name);
     }
 
-    public void deleteAllNotes() {
+    void deleteAllNotes() {
         new DeleteAllNotesAsyncTask(nameDao).execute();
     }
 
-    public LiveData<List<RoomEntity>> getAllNotes() {
+    LiveData<List<RoomEntity>> getAllNotes() {
         return allNames;
     }
 

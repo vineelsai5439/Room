@@ -1,4 +1,4 @@
-package com.vs.room;
+package com.vs.room.room;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -13,10 +13,15 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 public abstract class mRoomDatabase extends RoomDatabase {
 
     private static mRoomDatabase instance;
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateDbAsyncTask(instance).execute();
+        }
+    };
 
-    public abstract RoomDao nameDao();
-
-    public static synchronized mRoomDatabase getInstance(Context context) {
+    static synchronized mRoomDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     mRoomDatabase.class, "note_database")
@@ -27,13 +32,7 @@ public abstract class mRoomDatabase extends RoomDatabase {
         return instance;
     }
 
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
-        }
-    };
+    public abstract RoomDao nameDao();
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private RoomDao noteDao;

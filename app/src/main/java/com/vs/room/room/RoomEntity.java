@@ -1,6 +1,5 @@
-package com.vs.room;
+package com.vs.room.room;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

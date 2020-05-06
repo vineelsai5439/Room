@@ -1,4 +1,4 @@
-package com.vs.room;
+package com.vs.room.room;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
